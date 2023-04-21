@@ -21,26 +21,35 @@ public class WheelChairMovement : SensorDataListener
 {
     #region Fields
     [Header("Sensor Parameters")]
+    [Tooltip("Holds true if this character is for player one")]
+    [SerializeField] private bool checkForPlayerOne = true;
+
     [Tooltip("The x position the user can be relative to the sensor")]
     [SerializeField] private float maxUserXPos = 5.0f;
 
     [Tooltip("The minimum z position the user can be relative to the sensor")]
-    [SerializeField] private float minUserZPos = 0.5f;
+    [SerializeField] private float[] minUserZPos = new float[] { 0.5f };
 
     [Tooltip("The maximum z position the user can be relative to the sensor")]
-    [SerializeField] private float maxUserZPos = 5.0f;
+    [SerializeField] private float[] maxUserZPos = new float[] { 5.0f };
+
+    /// <summary>
+    /// The current movement difficulty index to be used.
+    /// </summary>
+    private int CurrentMovementDifficulty
+    {
+        get
+        {
+            return SettingsManager.Slot3;
+        }
+    }
 
     [Header("In-Game Character Parameters")]
     [Tooltip("The maximum x position the in-game character will be based on user XPos")]
     [SerializeField] private float maxCharacterXPos = 10.0f;
 
     [Tooltip("The maximum Y position the in-game character will be based on user ZPos")]
-    [SerializeField] private float[] maxCharacterYPos = new float[] { 3.5f, 5.0f, 7.0f };
-
-    /// <summary>
-    /// The index to be used for the character's min max y position.
-    /// </summary>
-    private int currentDifficultyIndex = 0;
+    [SerializeField] private float maxCharacterYPos = 7.0f;
 
     [Tooltip("The amount of smoothing to be applied to the movement to reduce jittering")]
     [SerializeField] private float movementSmoothing = 10;
@@ -63,6 +72,11 @@ public class WheelChairMovement : SensorDataListener
     [SerializeField] private int maxMovementQueueSize = 10;
 
     /// <summary>
+    /// Handles the shooting of the cannon.
+    /// </summary>
+    private ShootCannon shootCannon;
+
+    /// <summary>
     /// The position that this object started at.
     /// </summary>
     private Vector3 startingPosition;
@@ -80,7 +94,7 @@ public class WheelChairMovement : SensorDataListener
     /// <summary>
     /// The animator of the player's character.
     /// </summary>
-    private Animator characterAnimator;
+    [SerializeField] private Animator characterAnimator;
 
     /// <summary>
     /// A queue of previous y positions that can be used for calculating if the user is moving.
@@ -93,18 +107,9 @@ public class WheelChairMovement : SensorDataListener
     {
         base.Awake();
 
+        shootCannon = GetComponentInChildren<ShootCannon>();
+
         startingPosition = transform.position;
-        characterAnimator = GetComponent<Animator>();
-    }
-
-    public void InitializeSettingsHook()
-    {
-        SettingsManager.Slot3Update.AddListener(UpdateCurrentDifficultyIndex);
-    }
-
-    private void UpdateCurrentDifficultyIndex(int newIndex)
-    {
-        currentDifficultyIndex = newIndex;
     }
 
     /// <summary>
@@ -113,12 +118,29 @@ public class WheelChairMovement : SensorDataListener
     /// <param name="skeleton">The skeleton of the user.</param>
     protected override void UseUserData(Skeleton skeleton)
     {
+        if (!gameObject.activeInHierarchy) return;
+
+        if (checkForPlayerOne)
+        {
+            if (!BodySourceManager.IsPlayerOne(skeleton.trackingId))
+            {
+                return;
+            }
+        }
+        else
+        {
+            if (BodySourceManager.IsPlayerOne(skeleton.trackingId))
+            {
+                return;
+            }
+        }
+
         #region Taking input and calculating target position
         var xInput = skeleton.joints[(int)headJoint].position.x;
         var zInput = skeleton.joints[(int)headJoint].position.z;
 
         var targetPositionLerpX = Mathf.InverseLerp(-maxUserXPos, maxUserXPos, xInput); // Calculates the lerp of the angle
-        var targetPositionLerpZ = Mathf.InverseLerp(maxUserZPos, minUserZPos, zInput); // Calculates the lerp of the angle
+        var targetPositionLerpZ = Mathf.InverseLerp(maxUserZPos[CurrentMovementDifficulty], minUserZPos[CurrentMovementDifficulty], zInput); // Calculates the lerp of the angle
 
 
         if (invertInput)
@@ -129,7 +151,7 @@ public class WheelChairMovement : SensorDataListener
         }
 
         var targetX = Mathf.Lerp(-maxCharacterXPos, maxCharacterXPos, targetPositionLerpX) + startingPosition.x;
-        var targetY = Mathf.Lerp(-maxCharacterYPos[currentDifficultyIndex], maxCharacterYPos[currentDifficultyIndex], targetPositionLerpZ) + startingPosition.y;
+        var targetY = Mathf.Lerp(-maxCharacterYPos, maxCharacterYPos, targetPositionLerpZ) + startingPosition.y;
         #endregion
 
         #region Clamping Inputs
@@ -154,10 +176,10 @@ public class WheelChairMovement : SensorDataListener
         timeOfLastDataFrame = Time.time;
         #endregion
 
-        UpdateAnimation();
+        UpdateFromMovement();
     }
 
-    private void UpdateAnimation()
+    private void UpdateFromMovement()
     {
         if(yPositionQueue.Count == maxMovementQueueSize)
         {
@@ -170,18 +192,18 @@ public class WheelChairMovement : SensorDataListener
                 lastElement = item;
             }
 
-            if(delta > minimumMovementDelta)
+            var isMovingForward = delta > minimumMovementDelta;
+            var isMovingBackward = delta < -minimumMovementDelta;
+
+            if (characterAnimator)
             {
-                characterAnimator.SetBool("MoveForward", true);
+                characterAnimator.SetBool("MoveForward", isMovingForward);
+                characterAnimator.SetBool("MoveBackward", isMovingBackward);
             }
-            else if(delta < -minimumMovementDelta)
+
+            if(!(isMovingForward || isMovingBackward) && shootCannon != null && GameController.GameplayActive)
             {
-                characterAnimator.SetBool("MoveBackward", true);
-            }
-            else
-            {
-                characterAnimator.SetBool("MoveForward", false);
-                characterAnimator.SetBool("MoveBackward", false);
+                shootCannon.ShootCannonball();
             }
         }
 

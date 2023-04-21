@@ -55,6 +55,10 @@ public class CannonProjectile : MonoBehaviour
 
             ObjectPooler.ReturnObjectToPool(gameObject.name, gameObject);
         }
+        else if (other.gameObject.CompareTag("Obstacle"))
+        {
+            ObjectPooler.ReturnObjectToPool(gameObject.name, gameObject);
+        }
     }
     #endregion
 }

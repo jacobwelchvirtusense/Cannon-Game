@@ -218,6 +218,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1166525851220447954}
     m_Modifications:
+    - target: {fileID: 2277345323534385568, guid: cdc0dd3f90f680843ad7d75108991d33, type: 3}
+      propertyPath: objectsToEnable.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499653504385736330, guid: cdc0dd3f90f680843ad7d75108991d33, type: 3}
+      propertyPath: objectsToEnable.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499653504385736330, guid: cdc0dd3f90f680843ad7d75108991d33, type: 3}
+      propertyPath: objectsToEnable.Array.data[1]
+      value: 
+      objectReference: {fileID: 2069588482708493854}
     - target: {fileID: 5900019085141536385, guid: cdc0dd3f90f680843ad7d75108991d33, type: 3}
       propertyPath: m_Name
       value: GameController
@@ -844,6 +856,11 @@ PrefabInstance:
 --- !u!224 &1166525851948899320 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6051642017115716718, guid: 7de9b75f1ffb2f84d97e721a06cf1192, type: 3}
+  m_PrefabInstance: {fileID: 4885162387092268950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2069588482708493854 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6877896634809692552, guid: 7de9b75f1ffb2f84d97e721a06cf1192, type: 3}
   m_PrefabInstance: {fileID: 4885162387092268950}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &5862534017167608845 stripped

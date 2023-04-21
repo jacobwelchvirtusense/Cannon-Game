@@ -8,6 +8,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public class ObjectPooler : Singleton<ObjectPooler>
 {
@@ -30,7 +32,28 @@ public class ObjectPooler : Singleton<ObjectPooler>
     {
         base.Awake();
 
+        SceneManager.activeSceneChanged += DisableAllPoolObjects;
+
         SpawnInitialObjectPools();
+    }
+
+    /// <summary>
+    /// Disables all objects in all pools everytime the scene changes.
+    /// </summary>
+    /// <param name="currentScene">The current scene in use.</param>
+    /// <param name="nextScene">The scene that is being changed to.</param>
+    private void DisableAllPoolObjects(Scene currentScene, Scene nextScene)
+    {
+        foreach (var pool in pools)
+        {
+            if (poolDictionary.TryGetValue(pool.Prefab.name, out Queue<GameObject> poolObjects))
+            {
+                foreach(var obj in poolObjects)
+                {
+                    obj.SetActive(false);
+                }
+            }
+        }
     }
 
     /// <summary>

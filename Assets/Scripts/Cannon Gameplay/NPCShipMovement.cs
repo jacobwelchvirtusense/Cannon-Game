@@ -48,11 +48,19 @@ public class NPCShipMovement : MonoBehaviour
 
     private float currentShootSpeedMod = 0;
 
+    [Range(-1.0f, 1.0f)]
+    [Tooltip("The amount to adjust ROF for based on difficulty")]
+    [SerializeField] private float[] cannonROFDifficultyModifiers = new float[0];
+
     [Range(0.0f, 1.0f)]
     [Tooltip("The rate at which the cannon balls movement speed increases (increases over a second)")]
     [SerializeField] private float cannonBallSpeedIncreaseRate = 1;
 
     private float currentCannonballMoveSpeedMod = 1;
+
+    [Range(-1.0f, 1.0f)]
+    [Tooltip("The amount to adjust cannon ball speed for based on difficulty")]
+    [SerializeField] private float[] cannonBallSpeedDifficultyModifiers = new float[0];
     #endregion
 
     #region Functions
@@ -84,7 +92,7 @@ public class NPCShipMovement : MonoBehaviour
             yield return new WaitForFixedUpdate();
             IncrementGameSpeedModifiers();
             MoveNPC();
-            shootCannon.ShootCannonball(currentCannonballMoveSpeedMod, currentShootSpeedMod);
+            shootCannon.ShootCannonball(currentCannonballMoveSpeedMod + cannonBallSpeedDifficultyModifiers[SettingsManager.Slot3], currentShootSpeedMod + cannonROFDifficultyModifiers[SettingsManager.Slot3]);
         }
     }
 

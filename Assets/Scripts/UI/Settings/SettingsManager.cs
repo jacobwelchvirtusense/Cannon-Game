@@ -35,25 +35,81 @@ public class SettingsManager : UIButtonController
     /// </summary>
     private static bool hasNotInitializedSettings = true;
 
+    #region Slot Data Accessors
+    /// <summary>
+    /// The index of settings slot 1.
+    /// </summary>
+    public static int Slot1
+    {
+        get
+        {
+            if (indexSettingsData.Length < 1) return 0;
+
+            return indexSettingsData[0];
+        }
+    }
+
+    /// <summary>
+    /// The index of settings slot 2.
+    /// </summary>
+    public static int Slot2
+    {
+        get
+        {
+            if (indexSettingsData.Length < 2) return 0;
+
+            return indexSettingsData[1];
+        }
+    }
+
+    /// <summary>
+    /// The index of settings slot 3.
+    /// </summary>
+    public static int Slot3
+    {
+        get
+        {
+            if (indexSettingsData.Length < 3) return 0;
+
+            return indexSettingsData[2];
+        }
+    }
+
+    /// <summary>
+    /// The index of settings slot 4.
+    /// </summary>
+    public static int Slot4
+    {
+        get
+        {
+            if (indexSettingsData.Length < 4) return 0;
+
+            return indexSettingsData[3];
+        }
+    }
+    #endregion
+
+    #region Slot Changed Events
     /// <summary>
     /// Is called when the first setting slot is updated.
     /// </summary>
-    public static UnityEvent<int> Slot1Update = new UnityEvent<int>();
+    public static UnityEvent<int> Slot1OnValueChanged = new UnityEvent<int>();
 
     /// <summary>
     /// Is called when the second setting slot is updated.
     /// </summary>
-    public static UnityEvent<int> Slot2Update = new UnityEvent<int>();
+    public static UnityEvent<int> Slot2OnValueChanged = new UnityEvent<int>();
 
     /// <summary>
     /// Is called when the third setting slot is updated.
     /// </summary>
-    public static UnityEvent<int> Slot3Update = new UnityEvent<int>();
+    public static UnityEvent<int> Slot3OnValueChanged = new UnityEvent<int>();
 
     /// <summary>
     /// Is called when the fourth setting slot is updated.
     /// </summary>
-    public static UnityEvent<int> Slot4Update = new UnityEvent<int>();
+    public static UnityEvent<int> Slot4OnValueChanged = new UnityEvent<int>();
+    #endregion
     #endregion
 
     /// <summary>
@@ -198,16 +254,16 @@ public class SettingsManager : UIButtonController
         switch (slotIndex)
         {
             case 0:
-                Slot1Update.Invoke(indexSettingsData[slotIndex]);
+                Slot1OnValueChanged.Invoke(indexSettingsData[slotIndex]);
                 break;
             case 1:
-                Slot2Update.Invoke(indexSettingsData[slotIndex]);
+                Slot2OnValueChanged.Invoke(indexSettingsData[slotIndex]);
                 break;
             case 2:
-                Slot3Update.Invoke(indexSettingsData[slotIndex]);
+                Slot3OnValueChanged.Invoke(indexSettingsData[slotIndex]);
                 break;
             case 3:
-                Slot4Update.Invoke(indexSettingsData[slotIndex]);
+                Slot4OnValueChanged.Invoke(indexSettingsData[slotIndex]);
                 break;
             default:
                 break;

@@ -39,7 +39,7 @@ public class SinglePlayerRoutine : IGameRoutine
     public override void Initialize()
     {
         Instance = this;
-        SettingsManager.Slot2Update.AddListener(UpdateToNewLifeSlot);
+        SettingsManager.Slot2OnValueChanged.AddListener(UpdateToNewLifeSlot);
     }
 
     /// <summary>
@@ -84,6 +84,7 @@ public class SinglePlayerRoutine : IGameRoutine
 
     public override void SetActive(bool shouldBeActive)
     {
+        base.SetActive(shouldBeActive);
         UIManager.InitializeTimer(0);
     }
     #endregion

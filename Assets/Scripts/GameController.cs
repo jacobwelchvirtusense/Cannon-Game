@@ -42,11 +42,13 @@ public class GameController : MonoBehaviour
     {
         get
         {
-            if (IsntValid(Instance) || IsntValid(Instance.gameplayRoutine)) return false;
+            if (Instance) return Instance.gameplayActive;
 
-            return true;
+            return false;
         }
     }
+
+    private bool gameplayActive = false;
 
     [Range(0.0f, 5.0f)]
     [Tooltip("The count down time before starting")]
@@ -126,9 +128,6 @@ public class GameController : MonoBehaviour
             currentCombo = value;
         }
     }
-
-    [Tooltip("All the characters that can be used by players")]
-    [SerializeField] private WheelChairMovement[] characters = new WheelChairMovement[0];
     #endregion
 
     #region Sound
@@ -167,22 +166,10 @@ public class GameController : MonoBehaviour
     {
         Instance = this;
 
-        foreach(var character in characters)
-        {
-            character.InitializeSettingsHook();
-        }
-
-        if (isSingleplayer)
-        {
-            currentGameplayroutine = singleplayerRoutine;
-        }
-        else
-        {
-            currentGameplayroutine = multiplayerRoutine;
-        }
-
         singleplayerRoutine.Initialize();
         multiplayerRoutine.Initialize();
+
+        Slot1OnValueChanged.AddListener(UpdateNumberOfUsers);
 
         InitializeComponents();
     }
@@ -192,7 +179,20 @@ public class GameController : MonoBehaviour
     /// </summary>
     private void Start()
     {
-        currentGameplayroutine.SetActive(true);
+        if (BodySourceManager.NumberOfUsersToTrack == 1)
+        {
+            currentGameplayroutine = singleplayerRoutine;
+
+            singleplayerRoutine.SetActive(true);
+            multiplayerRoutine.SetActive(false);
+        }
+        else
+        {
+            currentGameplayroutine = multiplayerRoutine;
+
+            multiplayerRoutine.SetActive(true);
+            singleplayerRoutine.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -201,6 +201,23 @@ public class GameController : MonoBehaviour
     private void InitializeComponents()
     {
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void UpdateNumberOfUsers(int newNumberOfUsers)
+    {
+        switch (newNumberOfUsers)
+        {
+            case 0:
+                currentGameplayroutine = singleplayerRoutine;
+                singleplayerRoutine.SetActive(true);
+                multiplayerRoutine.SetActive(false);
+                break;
+            default:
+                currentGameplayroutine = multiplayerRoutine;
+                singleplayerRoutine.SetActive(false);
+                multiplayerRoutine.SetActive(true);
+                break;
+        }
     }
     #endregion
 
@@ -337,10 +354,13 @@ public class GameController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator GameplayRoutine()
     {
+        gameplayActive = true;
+
         yield return currentGameplayroutine.GameplayRoutine();
 
         yield return EndGame();
 
+        gameplayActive = false;
         gameplayRoutine = null;
     }
     #endregion

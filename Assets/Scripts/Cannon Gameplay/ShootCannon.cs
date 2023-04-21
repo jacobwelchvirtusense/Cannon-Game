@@ -31,6 +31,13 @@ public class ShootCannon : MonoBehaviour
     [SerializeField] private string collisionTag = "Player";
 
     /// <summary>
+    /// The animator of the cannon.
+    /// </summary>
+    private Animator cannonAnimator;
+
+    private const float distToSpawnFromCannonCenter = 0.75f;
+
+    /// <summary>
     /// The time this ship fired it's last shot.
     /// </summary>
     private float timeOfLastShot = -Mathf.Infinity;
@@ -38,16 +45,24 @@ public class ShootCannon : MonoBehaviour
 
     #region Functions
     /// <summary>
+    /// Initializes components.
+    /// </summary>
+    private void Awake()
+    {
+        cannonAnimator = GetComponent<Animator>();
+    }
+
+    /// <summary>
     /// Shoots the cannon ball in the current look rotation.
     /// </summary>
     public void ShootCannonball(float speedModifier = 1, float timeBetweenModifier = 0)
     {
         if(timeOfLastShot + timeBetweenShots - timeBetweenModifier < Time.time)
         {
-            var cannonBallSpawned = ObjectPooler.SpawnFromPool(cannonBall.name, transform.position, transform.rotation);
-
+            var cannonBallSpawned = ObjectPooler.SpawnFromPool(cannonBall.name, transform.position + transform.right*distToSpawnFromCannonCenter, transform.rotation);
             cannonBallSpawned.GetComponent<CannonProjectile>().InitializeMovement(cannonballSpeed*speedModifier, collisionTag);
 
+            cannonAnimator.SetTrigger("Shoot");
             timeOfLastShot = Time.time;
         }
     }

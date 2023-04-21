@@ -29,8 +29,11 @@ public class UIManager : MonoBehaviour
     [Tooltip("The array of lives to be used in the lives based mode")]
     [SerializeField] private GameObject[] hearts;
 
-    [Tooltip("The current number of lives the player has")]
-    [SerializeField] private TextMeshProUGUI livesText;
+    [Tooltip("The current number of lives player 1 has")]
+    [SerializeField] private TextMeshProUGUI livesTextPlayer1;
+
+    [Tooltip("The current number of lives player 2 has")]
+    [SerializeField] private TextMeshProUGUI livesTextPlayer2;
     #endregion
 
     #region Timer
@@ -109,15 +112,23 @@ public class UIManager : MonoBehaviour
     /// <param name="newLives">The number of lives the user currently has.</param>
     public static void UpdateLivesLeft(int newLives, int playerNumber = 0)
     {
-        Instance.livesText.text = "x" + newLives.ToString();
+        if(playerNumber == 2)
+        {
+            Instance.livesTextPlayer2.text = "x" + newLives.ToString();
+        }
+        else
+        {
+            Instance.livesTextPlayer1.text = "x" + newLives.ToString();
+        }
 
+        /*
         for (int i = 0; i < Instance.hearts.Length; i++)
         {
             if (i < Instance.hearts.Length)
             {
                 Instance.hearts[i].SetActive(i >= Instance.hearts.Length-newLives);
             }
-        }
+        }*/
     }
 
     #region Timer

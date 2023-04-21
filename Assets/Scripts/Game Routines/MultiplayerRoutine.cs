@@ -38,7 +38,7 @@ public class MultiplayerRoutine : IGameRoutine
     /// </summary>
     public int LivesLeftPlayer2
     {
-        get => livesLeft;
+        get => livesLeft2;
         set
         {
             livesLeft2 = value;
@@ -54,7 +54,7 @@ public class MultiplayerRoutine : IGameRoutine
     public override void Initialize()
     {
         Instance = this;
-        SettingsManager.Slot2Update.AddListener(UpdateToNewLifeSlot);
+        SettingsManager.Slot2OnValueChanged.AddListener(UpdateToNewLifeSlot);
     }
 
     /// <summary>
@@ -68,12 +68,13 @@ public class MultiplayerRoutine : IGameRoutine
         if (numberOfLives.Length > currentSlot)
         {
             LivesLeftPlayer1 = numberOfLives[currentSlot];
+            LivesLeftPlayer2 = numberOfLives[currentSlot];
         }
     }
 
     public override IEnumerator GameplayRoutine()
     {
-        while (livesLeft != 0 && livesLeft2 != 0)
+        while (livesLeft > 0 && livesLeft2 > 0)
         {
             yield return new WaitForEndOfFrame();
             timePlayedFor += Time.deltaTime;
@@ -83,7 +84,20 @@ public class MultiplayerRoutine : IGameRoutine
 
     public override void SetActive(bool shouldBeActive)
     {
-        throw new System.NotImplementedException();
+        base.SetActive(shouldBeActive);
+        UIManager.InitializeTimer(0);
+    }
+
+    public override void UpdateLives(int playerNumber, int modifier)
+    {
+        if(playerNumber == 1)
+        {
+            base.UpdateLives(playerNumber, modifier);
+        }
+        else
+        {
+            LivesLeftPlayer2 += modifier;
+        }
     }
     #endregion
 }

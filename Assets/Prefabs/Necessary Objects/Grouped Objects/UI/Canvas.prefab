@@ -195,7 +195,8 @@ MonoBehaviour:
   - {fileID: 8441539089982990361}
   - {fileID: 934976621831589096}
   - {fileID: 7709589217719459416}
-  livesText: {fileID: 6051642018701823976}
+  livesTextPlayer1: {fileID: 6051642018701823976}
+  livesTextPlayer2: {fileID: 8871749427036334930}
   timerUI: {fileID: 6051642017138136716}
   timerBar1: {fileID: 6051642017286944699}
   timerBar2: {fileID: 6051642019064657157}
@@ -1566,6 +1567,17 @@ MonoBehaviour:
 --- !u!114 &6051642018701823976 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2920297386162628977, guid: 4e92b8f82d4817340b62d30415a6083c, type: 3}
+  m_PrefabInstance: {fileID: 8898333698436720281}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8871749427036334930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 28132392723271115, guid: 4e92b8f82d4817340b62d30415a6083c, type: 3}
   m_PrefabInstance: {fileID: 8898333698436720281}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}

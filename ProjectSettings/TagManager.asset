@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Music
   - Player 2
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -49,9 +50,12 @@ TagManager:
   - name: Obstacles
     uniqueID: 1713902507
     locked: 0
+  - name: Ships
+    uniqueID: 926979443
+    locked: 0
   - name: Cannon Ball
     uniqueID: 2801916625
     locked: 0
-  - name: Ships
-    uniqueID: 926979443
+  - name: Cannon
+    uniqueID: 2734488135
     locked: 0

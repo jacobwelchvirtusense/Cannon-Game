@@ -34,11 +34,6 @@ public class SensorFeedback : SensorDataListener
     [SerializeField] private Color backgroundColor = Color.black;
 
     /// <summary>
-    /// The index of the active user being display in the data visualization.
-    /// </summary>
-    private short activeUserIndex = -1;
-
-    /// <summary>
     /// The texture that is being applied to the sensorDataImage.
     /// </summary>
     private Texture2D sensorTexture;
@@ -139,7 +134,7 @@ public class SensorFeedback : SensorDataListener
     /// <param name="bodyIndexData">The body index data.</param>
     private async void BodyIndexReader_FrameArrived(GenericEventArgs<BodyIndexFrame> bodyIndexData)
     {
-        if (activeUserIndex == -1) return;
+        if (HasNotFoundUser()) return;
         else
         {
             sensorDataImage.color = Color.white;
@@ -172,7 +167,7 @@ public class SensorFeedback : SensorDataListener
             {
                 byte index = bodyIndexData.Args.Pixels[i];
 
-                if (index == activeUserIndex)
+                if (BodySourceManager.IsActiveIndex(index))
                 {
                     bodyIndexColors[i] = activeUserColor;
                 }
@@ -228,9 +223,7 @@ public class SensorFeedback : SensorDataListener
     /// <param name="skeleton">The skeleton currently being tracked.</param>
     protected override void UseUserData(Skeleton skeleton)
     {
-        if (!gameObject.activeInHierarchy) return;
-
-        activeUserIndex = skeleton.trackingIndex;
+        if (!gameObject.activeInHierarchy || !BodySourceManager.IsPlayerOne(skeleton.trackingId)) return;
 
         DisplayFeedback(skeleton.joints[(int)JointType.SpineBase].position);
     }

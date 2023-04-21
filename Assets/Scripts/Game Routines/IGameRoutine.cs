@@ -38,13 +38,28 @@ public abstract class IGameRoutine : MonoBehaviour
             UIManager.UpdateLivesLeft(livesLeft);
         }
     }
+
+    [SerializeField] protected GameObject[] objectsToEnable;
+
+    [SerializeField] protected GameObject[] objectsToDisable;
     #endregion
 
     #region Functions
     /// <summary>
     /// Sets this routine as the active routine and initializes it.
     /// </summary>
-    public abstract void SetActive(bool shouldBeActive);
+    public virtual void SetActive(bool shouldBeActive)
+    {
+        foreach(var obj in objectsToEnable)
+        {
+            obj.SetActive(shouldBeActive);
+        }
+
+        foreach (var obj in objectsToDisable)
+        {
+            obj.SetActive(!shouldBeActive);
+        }
+    }
 
     public virtual void Initialize()
     {

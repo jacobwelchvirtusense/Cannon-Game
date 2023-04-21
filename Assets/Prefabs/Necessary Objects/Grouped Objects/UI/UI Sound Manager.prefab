@@ -51,9 +51,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverSound: {fileID: 8300000, guid: 8de57d4b19ec68246931f81f250a37f6, type: 3}
-  hoverSoundVolume: 1
+  hoverSoundVolume: 0.5
   clickSound: {fileID: 8300000, guid: 8de57d4b19ec68246931f81f250a37f6, type: 3}
-  clickSoundVolume: 1
+  clickSoundVolume: 0.5
 --- !u!82 &5024073714111974325
 AudioSource:
   m_ObjectHideFlags: 0

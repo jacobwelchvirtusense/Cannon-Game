@@ -19,6 +19,25 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!243 &-5921637510554761780
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Cannon Fire
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 75aaed20a0cd784438c8d2f96e3868fc
+  m_Children: []
+  m_Volume: 6afeee1524d679a4ca4fbe255dfee8ee
+  m_Pitch: 6b15bd0b3cd73be4da928e11e64d798b
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 1806934645747684577}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-5308525457448744876
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -56,6 +75,7 @@ AudioMixerController:
     - 7fb3e866011ec174bab3afadb4a02477
     - 77be21fa20e8ca944b70cb149f7369a7
     - 848feac2132a7884f8101a4469246f04
+    - 75aaed20a0cd784438c8d2f96e3868fc
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -155,6 +175,20 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &1806934645747684577
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: f1334d55031e2534a883db4d010750a7
+  m_EffectName: Attenuation
+  m_MixLevel: 8174533e79c56764b9dc76febbadcac4
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &5825661382933634319
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -178,7 +212,8 @@ AudioMixerGroupController:
   m_Name: Gameplay Sounds
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 6051e8e861c1ae342b679f11b9d842bb
-  m_Children: []
+  m_Children:
+  - {fileID: -5921637510554761780}
   m_Volume: bc6289f3977a89f47965daf6ba6ec224
   m_Pitch: 2b98330fd7a16584680e7a661100a8f5
   m_Send: 00000000000000000000000000000000

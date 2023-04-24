@@ -246,7 +246,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   countdownObject: {fileID: 8548693902165062703}
   translucentAmount: 0.5
-  countDownSound: {fileID: 8300000, guid: df6cb357534d2f94fa3965bd556d2aae, type: 3}
+  countDownSound:
+  - {fileID: 8300000, guid: 247bfff06f6835f45aea5fae42347a73, type: 3}
   countDownSoundVolume: 1
-  startSound: {fileID: 8300000, guid: 2520067476e53d043a82d6621f962ecd, type: 3}
+  startSound:
+  - {fileID: 8300000, guid: 0fb6727f9f50c9f42ba76606b0557788, type: 3}
+  - {fileID: 8300000, guid: 47bc6c678c8623e44a9d6d252889d51e, type: 3}
+  - {fileID: 8300000, guid: 2d2a0ed4585ddb543baf4e5d505b7c6e, type: 3}
   startSoundVolume: 1

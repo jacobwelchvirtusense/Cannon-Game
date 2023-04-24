@@ -30,7 +30,7 @@ public class Countdown : MonoBehaviour
     [Header("Sound")]
     #region Countdown Sound
     [Tooltip("The sound made with each change of the countdown")]
-    [SerializeField] private AudioClip countDownSound;
+    [SerializeField] private AudioClip[] countDownSound = new AudioClip[0];
 
     [Range(0.0f, 1.0f)]
     [Tooltip("The volume of the count down sound")]
@@ -42,7 +42,7 @@ public class Countdown : MonoBehaviour
     #region Start Sound
     [Tooltip("The sound made when it says go")]
     [SerializeField]
-    private AudioClip startSound;
+    private AudioClip[] startSound = new AudioClip[0];
 
     [Range(0.0f, 1.0f)]
     [Tooltip("The volume of the start sound")]
@@ -106,11 +106,11 @@ public class Countdown : MonoBehaviour
             #region Sound
             if (t != 0)
             {
-                PlaySound(Instance.audioSource, Instance.countDownSound, Instance.countDownSoundVolume);
+                PlaySound(Instance.audioSource, Instance.countDownSound[Random.Range(0, Instance.countDownSound.Length)], Instance.countDownSoundVolume);
             }
             else
             {
-                PlaySound(Instance.audioSource, Instance.startSound, Instance.startSoundVolume);
+                PlaySound(Instance.audioSource, Instance.startSound[Random.Range(0, Instance.startSound.Length)], Instance.startSoundVolume);
             }
             #endregion
 

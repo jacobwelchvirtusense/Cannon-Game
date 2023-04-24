@@ -41,6 +41,10 @@ public class ShootCannon : MonoBehaviour
     /// The time this ship fired it's last shot.
     /// </summary>
     private float timeOfLastShot = -Mathf.Infinity;
+
+    private AudioSource audioSource;
+
+    [SerializeField] private AudioClip[] cannonFireSounds = new AudioClip[0];
     #endregion
 
     #region Functions
@@ -50,6 +54,7 @@ public class ShootCannon : MonoBehaviour
     private void Awake()
     {
         cannonAnimator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -59,11 +64,21 @@ public class ShootCannon : MonoBehaviour
     {
         if(timeOfLastShot + timeBetweenShots - timeBetweenModifier < Time.time)
         {
+            PlayShootSound();
+
             var cannonBallSpawned = ObjectPooler.SpawnFromPool(cannonBall.name, transform.position + transform.right*distToSpawnFromCannonCenter, transform.rotation);
             cannonBallSpawned.GetComponent<CannonProjectile>().InitializeMovement(cannonballSpeed*speedModifier, collisionTag);
 
             cannonAnimator.SetTrigger("Shoot");
             timeOfLastShot = Time.time;
+        }
+    }
+
+    private void PlayShootSound()
+    {
+        if(cannonFireSounds.Length != 0)
+        {
+            audioSource.PlayOneShot(cannonFireSounds[Random.Range(0, cannonFireSounds.Length)]);
         }
     }
     #endregion

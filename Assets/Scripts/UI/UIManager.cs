@@ -29,11 +29,17 @@ public class UIManager : MonoBehaviour
     [Tooltip("The array of lives to be used in the lives based mode")]
     [SerializeField] private GameObject[] hearts;
 
-    [Tooltip("The current number of lives player 1 has")]
-    [SerializeField] private TextMeshProUGUI livesTextPlayer1;
+    [Tooltip("The current number of lives player 1 has as a bar")]
+    [SerializeField] private Image livesBarPlayer1;
 
-    [Tooltip("The current number of lives player 2 has")]
-    [SerializeField] private TextMeshProUGUI livesTextPlayer2;
+    [Tooltip("The UI heart next to player 1's health bar")]
+    [SerializeField] private Animator player1Heart;
+
+    [Tooltip("The current number of lives player 2 has  as a bar")]
+    [SerializeField] private Image livesBarPlayer2;
+
+    [Tooltip("The UI heart next to player 2's health bar")]
+    [SerializeField] private Animator player2Heart;
     #endregion
 
     #region Timer
@@ -73,12 +79,6 @@ public class UIManager : MonoBehaviour
 
     [Tooltip("The end game display for the fifth slot")]
     [SerializeField] private EndGameDataDisplay[] endGameDisplay5;
-
-    private int numberOfTimesHitP1 = 0;
-    private int numberOfTimesHitP2 = 0;
-
-    private int numberOfTimesLandedP1 = 0;
-    private int numberOfTimesLandedP2 = 0;
     #endregion
     #endregion
 
@@ -127,25 +127,28 @@ public class UIManager : MonoBehaviour
     /// Updates the displayed number of lives.
     /// </summary>
     /// <param name="newLives">The number of lives the user currently has.</param>
-    public static void UpdateLivesLeft(int newLives, int playerNumber = 0)
+    public static void UpdateLivesLeft(int newLives, int maxLives, int playerNumber = 0)
     {
+        if (IsntValid(Instance)) return;
+
         if(playerNumber == 2)
         {
-            Instance.livesTextPlayer2.text = "x" + newLives.ToString();
+            //Instance.livesTextPlayer2.text = "x" + newLives.ToString();
+            if (Instance.livesBarPlayer2)
+                Instance.livesBarPlayer2.fillAmount = (float)newLives / maxLives;
 
-            if (!GameController.GameplayActive) return;
-
-            UpdateEndGameData(3, (++Instance.numberOfTimesHitP2).ToString(), 2); // Updates the amount of times hit
-            UpdateEndGameData(5, (++Instance.numberOfTimesLandedP1).ToString(), 1); // Updates the amount of times you hit the other player
+            if (Instance.player2Heart)
+                Instance.player2Heart.SetTrigger("Animate");
         }
         else
         {
-            Instance.livesTextPlayer1.text = "x" + newLives.ToString();
+            //Instance.livesTextPlayer1.text = "x" + newLives.ToString();
 
-            if (!GameController.GameplayActive) return;
+            if(Instance.livesBarPlayer1)
+            Instance.livesBarPlayer1.fillAmount = (float)newLives / maxLives;
 
-            UpdateEndGameData(3, (++Instance.numberOfTimesHitP1).ToString(), 1); // Updates the amount of times hit
-            UpdateEndGameData(5, (++Instance.numberOfTimesLandedP2).ToString(), 2); // Updates the amount of times you hit the other player
+            if(Instance.player1Heart)
+            Instance.player1Heart.SetTrigger("Animate");
         }
     }
 
@@ -243,19 +246,62 @@ public class UIManager : MonoBehaviour
         switch (indexToUpdate)
         {
             case 1:
-                Instance.endGameDisplay1[playerNumber-1].UpdateText(newData);
+                newData += "m";
+
+                if(playerNumber == 2)
+                {
+                    Instance.endGameDisplay1[playerNumber].UpdateText(newData);
+                }
+                else
+                {
+                    Instance.endGameDisplay1[0].UpdateText(newData);
+                    Instance.endGameDisplay1[1].UpdateText(newData);
+                }
                 break;
             case 2:
-                Instance.endGameDisplay2[playerNumber - 1].UpdateText(newData);
+                if (playerNumber == 2)
+                {
+                    Instance.endGameDisplay2[playerNumber].UpdateText(newData);
+                }
+                else
+                {
+                    Instance.endGameDisplay2[0].UpdateText(newData);
+                    Instance.endGameDisplay2[1].UpdateText(newData);
+                }
                 break;
             case 3:
-                Instance.endGameDisplay3[playerNumber - 1].UpdateText(newData);
+                if (playerNumber == 2)
+                {
+                    Instance.endGameDisplay3[playerNumber].UpdateText(newData);
+                }
+                else
+                {
+                    Instance.endGameDisplay3[0].UpdateText(newData);
+                    Instance.endGameDisplay3[1].UpdateText(newData);
+                }
                 break;
             case 4:
-                Instance.endGameDisplay4[playerNumber - 1].UpdateText(newData);
+                if (playerNumber == 2)
+                {
+                    Instance.endGameDisplay4[playerNumber].UpdateText(newData);
+                }
+                else
+                {
+                    Instance.endGameDisplay4[0].UpdateText(newData);
+                    Instance.endGameDisplay4[1].UpdateText(newData);
+                    Instance.endGameDisplay4[2].UpdateText(newData);
+                }
                 break;
             case 5:
-                Instance.endGameDisplay5[playerNumber - 1].UpdateText(newData);
+                if (playerNumber == 2)
+                {
+                    Instance.endGameDisplay5[playerNumber].UpdateText(newData);
+                }
+                else
+                {
+                    Instance.endGameDisplay5[0].UpdateText(newData);
+                    Instance.endGameDisplay5[1].UpdateText(newData);
+                }
                 break;
             default:
                 break;

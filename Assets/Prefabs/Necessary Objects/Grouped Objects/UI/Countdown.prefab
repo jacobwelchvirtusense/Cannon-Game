@@ -247,9 +247,10 @@ MonoBehaviour:
   countdownObject: {fileID: 8548693902165062703}
   translucentAmount: 0.5
   countDownSound:
-  - {fileID: 8300000, guid: 2882b4a556b1b214cb448ac3365155bf, type: 3}
-  countDownSoundVolume: 1
+  - {fileID: 8300000, guid: 488b2a866ca59d24bbc269c6f37aaec3, type: 3}
+  - {fileID: 8300000, guid: 01456a590fc01e949b871f2f4833ef25, type: 3}
+  countDownSoundVolume: 0.75
   startSound:
-  - {fileID: 8300000, guid: fce7f98896d2f974d82f8f638db6c388, type: 3}
+  - {fileID: 8300000, guid: 416b785dd34960f4faced5dd2a2cb9a8, type: 3}
   - {fileID: 8300000, guid: 0239d774f4d2f784387cae414d87f329, type: 3}
   startSoundVolume: 1

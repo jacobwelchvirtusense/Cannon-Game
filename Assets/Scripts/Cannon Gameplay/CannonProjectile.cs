@@ -29,6 +29,12 @@ public class CannonProjectile : MonoBehaviour
     [SerializeField] private LayerMask playerMask;
 
     private bool foundPlayer = false;
+
+    [Tooltip("The minimum amount of spin that this cannonball should have")]
+    [SerializeField] private float minimumAngularVelocity;
+
+    [Tooltip("The maximum amount of spin that this cannonball should have")]
+    [SerializeField] private float maximumAngularVelocity;
     #endregion
 
     #region Functions
@@ -49,6 +55,7 @@ public class CannonProjectile : MonoBehaviour
     public void InitializeMovement(float moveSpeed, string collisionTag)
     {
         rigidbodyComponent.velocity = transform.right * moveSpeed;
+        rigidbodyComponent.angularVelocity = CustomRandom.RandomNegative() * Mathf.Lerp(minimumAngularVelocity, maximumAngularVelocity, moveSpeed/15.0f);
         this.collisionTag = collisionTag;
 
         CheckForPlayer();

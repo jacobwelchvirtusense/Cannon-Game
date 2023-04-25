@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 641589600124199184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.6989853, y: -3.1893601, z: 0}
-  m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: -1493050671
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8eab7ac1f30eae94bb7c23fca07fd512, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 8
+  minimumAngularVelocity: 100
+  maximumAngularVelocity: 500
 --- !u!50 &4777907620117173493
 Rigidbody2D:
   serializedVersion: 4
@@ -118,7 +120,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -138,9 +140,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.06615771, y: 0.026462873}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.857251
 --- !u!96 &1455060718
 TrailRenderer:
   serializedVersion: 2
@@ -192,28 +194,28 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.75
-        inSlope: 0
-        outSlope: 0
+        value: 0.8
+        inSlope: 0.089963526
+        outSlope: 0.089963526
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.4001663
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: 0.3299599
+        outSlope: 0.3299599
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.46672225
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+      key0: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
       key1: {r: 0.754717, g: 0.754717, b: 0.754717, a: 0.5882353}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}

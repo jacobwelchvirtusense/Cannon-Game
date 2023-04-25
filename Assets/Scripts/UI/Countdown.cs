@@ -99,16 +99,19 @@ public class Countdown : MonoBehaviour
         int t = timeBeforeStart;
         Instance.countdownObject.SetActive(true);
 
-        yield return new WaitForSeconds(0.25f);
+        //yield return new WaitForSeconds(0.25f);
 
         do
         {
             #region Sound
             if (t != 0)
             {
-                Instance.audioSource.pitch = CustomRandom.RandomGeneration(0.95f, 1.05f, CustomRandom.GenerationType.RANDOM);
+                //Instance.audioSource.pitch = t*0.075f + 0.9f;
 
-                PlaySound(Instance.audioSource, Instance.countDownSound[Random.Range(0, Instance.countDownSound.Length)], Instance.countDownSoundVolume);
+                if(t == 3)
+                {
+                    PlaySound(Instance.audioSource, Instance.countDownSound[Random.Range(0, Instance.countDownSound.Length)], Instance.countDownSoundVolume);
+                }
             }
             else
             {

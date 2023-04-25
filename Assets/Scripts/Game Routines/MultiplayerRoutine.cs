@@ -41,8 +41,15 @@ public class MultiplayerRoutine : IGameRoutine
         get => livesLeft2;
         set
         {
+            if (GameController.GameplayActive && livesLeft != 0)
+            {
+                UIManager.UpdateEndGameData(3, (++numberOfTimesHitP2).ToString(), 2); // Updates the amount of times hit
+                UIManager.UpdateEndGameData(5, (++numberOfTimesLandedP1).ToString(), 1); // Updates the amount of times you hit the other player
+            }
+
             livesLeft2 = value;
-            UIManager.UpdateLivesLeft(livesLeft2, 2);
+            livesLeft = Mathf.Clamp(livesLeft, 0, livesLeft);
+            UIManager.UpdateLivesLeft(livesLeft2, numberOfLives[SettingsManager.Slot2], 2);
         }
     }
     #endregion

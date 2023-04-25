@@ -33,11 +33,23 @@ public abstract class IGameRoutine : MonoBehaviour
         get => livesLeft;
         set
         {
+            if (GameController.GameplayActive && livesLeft != 0)
+            {
+                UIManager.UpdateEndGameData(3, (++numberOfTimesHitP1).ToString(), 1); // Updates the amount of times hit
+                UIManager.UpdateEndGameData(5, (++numberOfTimesLandedP2).ToString(), 2); // Updates the amount of times you hit the other player
+            }
+
             livesLeft = value;
             livesLeft = Mathf.Clamp(livesLeft, 0, livesLeft);
-            UIManager.UpdateLivesLeft(livesLeft);
+            UIManager.UpdateLivesLeft(livesLeft, numberOfLives[SettingsManager.Slot2]);
         }
     }
+
+    protected int numberOfTimesHitP1 = 0;
+    protected int numberOfTimesHitP2 = 0;
+
+    protected int numberOfTimesLandedP1 = 0;
+    protected int numberOfTimesLandedP2 = 0;
 
     [SerializeField] protected GameObject[] objectsToEnable;
 

@@ -106,10 +106,14 @@ public class Countdown : MonoBehaviour
             #region Sound
             if (t != 0)
             {
+                Instance.audioSource.pitch = CustomRandom.RandomGeneration(0.95f, 1.05f, CustomRandom.GenerationType.RANDOM);
+
                 PlaySound(Instance.audioSource, Instance.countDownSound[Random.Range(0, Instance.countDownSound.Length)], Instance.countDownSoundVolume);
             }
             else
             {
+                Instance.audioSource.pitch = 1.0f;
+
                 PlaySound(Instance.audioSource, Instance.startSound[Random.Range(0, Instance.startSound.Length)], Instance.startSoundVolume);
             }
             #endregion

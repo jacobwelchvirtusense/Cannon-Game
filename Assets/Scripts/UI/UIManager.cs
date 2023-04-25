@@ -53,23 +53,32 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI score;
 
     [Tooltip("The end screen for the game")]
-    [SerializeField] private GameObject endScreen;
+    [SerializeField] private GameObject endScreenSinglePlayer;
+
+    [Tooltip("The end screen for the game")]
+    [SerializeField] private GameObject endScreenMultiPlayer;
 
     #region End Game Data Displays
     [Tooltip("The end game display for the first slot")]
-    [SerializeField] private EndGameDataDisplay endGameDisplay1;
+    [SerializeField] private EndGameDataDisplay[] endGameDisplay1;
 
     [Tooltip("The end game display for the second slot")]
-    [SerializeField] private EndGameDataDisplay endGameDisplay2;
+    [SerializeField] private EndGameDataDisplay[] endGameDisplay2;
 
     [Tooltip("The end game display for the third slot")]
-    [SerializeField] private EndGameDataDisplay endGameDisplay3;
+    [SerializeField] private EndGameDataDisplay[] endGameDisplay3;
 
     [Tooltip("The end game display for the fourth slot")]
-    [SerializeField] private EndGameDataDisplay endGameDisplay4;
+    [SerializeField] private EndGameDataDisplay[] endGameDisplay4;
 
     [Tooltip("The end game display for the fifth slot")]
-    [SerializeField] private EndGameDataDisplay endGameDisplay5;
+    [SerializeField] private EndGameDataDisplay[] endGameDisplay5;
+
+    private int numberOfTimesHitP1 = 0;
+    private int numberOfTimesHitP2 = 0;
+
+    private int numberOfTimesLandedP1 = 0;
+    private int numberOfTimesLandedP2 = 0;
     #endregion
     #endregion
 
@@ -80,6 +89,14 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        for(int i = 1; i <= 5; i++)
+        {
+            for(int j = 1; j <= 2; j++)
+            {
+                UpdateEndGameData(i, 0.ToString(), j);
+            }
+        }
     }
 
     #region UI Updates
@@ -103,7 +120,7 @@ public class UIManager : MonoBehaviour
     private static void UpdateScoreEndGame(int newScore)
     {
         if (IsntValid(Instance.endGameDisplay1)) return;
-        Instance.endGameDisplay1.UpdateText(newScore.ToString());
+        //Instance.endGameDisplay1.UpdateText(newScore.ToString());
     }
 
     /// <summary>
@@ -115,20 +132,21 @@ public class UIManager : MonoBehaviour
         if(playerNumber == 2)
         {
             Instance.livesTextPlayer2.text = "x" + newLives.ToString();
+
+            if (!GameController.GameplayActive) return;
+
+            UpdateEndGameData(3, (++Instance.numberOfTimesHitP2).ToString(), 2); // Updates the amount of times hit
+            UpdateEndGameData(5, (++Instance.numberOfTimesLandedP1).ToString(), 1); // Updates the amount of times you hit the other player
         }
         else
         {
             Instance.livesTextPlayer1.text = "x" + newLives.ToString();
-        }
 
-        /*
-        for (int i = 0; i < Instance.hearts.Length; i++)
-        {
-            if (i < Instance.hearts.Length)
-            {
-                Instance.hearts[i].SetActive(i >= Instance.hearts.Length-newLives);
-            }
-        }*/
+            if (!GameController.GameplayActive) return;
+
+            UpdateEndGameData(3, (++Instance.numberOfTimesHitP1).ToString(), 1); // Updates the amount of times hit
+            UpdateEndGameData(5, (++Instance.numberOfTimesLandedP2).ToString(), 2); // Updates the amount of times you hit the other player
+        }
     }
 
     #region Timer
@@ -167,6 +185,8 @@ public class UIManager : MonoBehaviour
         if (leftOverSeconds < 10) secondsDisplayed += "0";
         secondsDisplayed += leftOverSeconds;
 
+        UpdateEndGameData(4, minutes.ToString() + ":" + secondsDisplayed);
+
         return minutes.ToString() + ":" + secondsDisplayed;
     }
 
@@ -193,35 +213,49 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public static void DisplayEndScreen()
     {
-        if (InstanceDoesntExist() || IsntValid(Instance.endScreen)) return;
+        if (InstanceDoesntExist() || IsntValid(Instance.endScreenSinglePlayer) || IsntValid(Instance.endScreenMultiPlayer)) return;
 
-        Instance.endScreen.SetActive(true);
+        if(BodySourceManager.NumberOfUsersToTrack == 1)
+        {
+            Instance.endScreenSinglePlayer.SetActive(true);
+        }
+        else
+        {
+            Instance.endScreenMultiPlayer.SetActive(true);
+        }
     }
     #endregion
 
     /// <summary>
     /// Updates end game displays to have certain data.
+    /// 1 is the amount of movement
+    /// 2 is the amount dodged
+    /// 3 is the amount of time hit
+    /// 4 is the amount of time played for
+    /// 5 is the amount of hits on the other player
     /// </summary>
     /// <param name="indexToUpdate">The index between 1-5 to update for end game data.</param>
     /// <param name="newData">The new data to put in the end game display.</param>
-    public static void UpdateEndGameData(int indexToUpdate, string newData)
+    public static void UpdateEndGameData(int indexToUpdate, string newData, int playerNumber = 1)
     {
+        if (BodySourceManager.NumberOfUsersToTrack == 1 && playerNumber == 2) return;
+
         switch (indexToUpdate)
         {
             case 1:
-                Instance.endGameDisplay1.UpdateText(newData);
+                Instance.endGameDisplay1[playerNumber-1].UpdateText(newData);
                 break;
             case 2:
-                Instance.endGameDisplay2.UpdateText(newData);
+                Instance.endGameDisplay2[playerNumber - 1].UpdateText(newData);
                 break;
             case 3:
-                Instance.endGameDisplay3.UpdateText(newData);
+                Instance.endGameDisplay3[playerNumber - 1].UpdateText(newData);
                 break;
             case 4:
-                Instance.endGameDisplay4.UpdateText(newData);
+                Instance.endGameDisplay4[playerNumber - 1].UpdateText(newData);
                 break;
             case 5:
-                Instance.endGameDisplay5.UpdateText(newData);
+                Instance.endGameDisplay5[playerNumber - 1].UpdateText(newData);
                 break;
             default:
                 break;

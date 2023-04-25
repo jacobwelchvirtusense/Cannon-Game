@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 4758409701331544639}
   - component: {fileID: 4703443273335079482}
   m_Layer: 5
-  m_Name: Highest Combo
+  m_Name: Dodged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Best Streak
+  m_text: Times Dodged
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
   m_sharedMaterial: {fileID: -8416665447667120113, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 1268796910579531223}
   - component: {fileID: 1288021917664538807}
   m_Layer: 5
-  m_Name: Good Apples Caught
+  m_Name: Times Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Good Apples Caught
+  m_text: Times Hit
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
   m_sharedMaterial: {fileID: -8416665447667120113, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
@@ -484,12 +484,12 @@ GameObject:
   - component: {fileID: 1384883508543706227}
   - component: {fileID: 1819165509831294395}
   m_Layer: 5
-  m_Name: Good Apples Missed
+  m_Name: Times Hit Other Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2113695573919910763
 RectTransform:
   m_ObjectHideFlags: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Good Apples Missed
+  m_text: Times Hit Other Player
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
   m_sharedMaterial: {fileID: -8416665447667120113, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
@@ -620,7 +620,7 @@ GameObject:
   - component: {fileID: 7000562369468027636}
   - component: {fileID: 4204158841389959907}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Movemenet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Score
+  m_text: Movement
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
   m_sharedMaterial: {fileID: -8416665447667120113, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
@@ -757,7 +757,7 @@ GameObject:
   - component: {fileID: 4695887048618399206}
   - component: {fileID: 4695887048618399204}
   m_Layer: 5
-  m_Name: Bad Apples
+  m_Name: Time Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1448,7 +1448,7 @@ GameObject:
   - component: {fileID: 4695887049577804600}
   - component: {fileID: 4695887049577804601}
   m_Layer: 5
-  m_Name: Good Apples
+  m_Name: Hit Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1596,7 +1596,7 @@ GameObject:
   - component: {fileID: 4695887049661208676}
   - component: {fileID: 4695887049661208674}
   m_Layer: 5
-  m_Name: Good Apples Missed
+  m_Name: Hit Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1744,7 +1744,7 @@ GameObject:
   - component: {fileID: 4695887049927281571}
   - component: {fileID: 4695887049927281569}
   m_Layer: 5
-  m_Name: Score (1)
+  m_Name: Movement Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1892,7 +1892,7 @@ GameObject:
   - component: {fileID: 4695887050132303728}
   - component: {fileID: 4695887050132303742}
   m_Layer: 5
-  m_Name: Highest Combo
+  m_Name: Dodged Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2476,7 +2476,7 @@ GameObject:
   - component: {fileID: 7440318919707037524}
   - component: {fileID: 8436531046756332976}
   m_Layer: 5
-  m_Name: Bad Apples Caught
+  m_Name: Time Played For
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2531,7 +2531,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Bad Apples Caught
+  m_text: Time Played For
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}
   m_sharedMaterial: {fileID: -8416665447667120113, guid: 356ddef9c2e4e9b4ab9a9d6abde7d856, type: 2}

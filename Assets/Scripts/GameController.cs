@@ -84,50 +84,6 @@ public class GameController : MonoBehaviour
     [Header("Score and Combos")]
     [Tooltip("The text prefab for increments to score")]
     [SerializeField] private GameObject scoreText;
-
-    [Range(0.0f, 10.0f)]
-    [Tooltip("The rate of points to increase by per combo")]
-    [SerializeField] private float comboModifier = 0.25f;
-
-    /// <summary>
-    /// The current total of points the player has.
-    /// </summary>
-    private int currentScore = 0;
-
-    /// <summary>
-    /// A getter and setter for updating the current score the user has.
-    /// </summary>
-    public int CurrentScore
-    {
-        get => currentScore;
-        set
-        {
-            currentScore = value;
-            UIManager.UpdateScore(currentScore);
-
-            if (highestComboReached < currentCombo)
-            {
-                highestComboReached = currentCombo;
-            }
-        }
-    }
-
-    /// <summary>
-    /// The current combo the player has.
-    /// </summary>
-    private int currentCombo = 0;
-
-    /// <summary>
-    /// A getter and setter for updating the current combo the user has.
-    /// </summary>
-    public int CurrentCombo
-    {
-        get => currentCombo;
-        set
-        {
-            currentCombo = value;
-        }
-    }
     #endregion
 
     #region Sound
@@ -150,10 +106,39 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region Output Data
-    /// <summary>
-    /// The highest combo that the user has reached.
-    /// </summary>
-    private int highestComboReached = 0;
+    #region Number Of Times Dodged
+    private int numberOfTimesDodgedP1 = 0;
+
+    public static int NumberOfTimesDodgedP1
+    { 
+        get
+        {
+            return Instance.numberOfTimesDodgedP1;
+        }
+        set
+        {
+            Instance.numberOfTimesDodgedP1 = value;
+
+            UIManager.UpdateEndGameData(2, value.ToString(), 1);
+        }
+    }
+
+    private int numberOfTimesDodgedP2 = 0;
+
+    public static int NumberOfTimesDodgedP2
+    {
+        get
+        {
+            return Instance.numberOfTimesDodgedP2;
+        }
+        set
+        {
+            Instance.numberOfTimesDodgedP2 = value;
+
+            UIManager.UpdateEndGameData(2, value.ToString(), 2);
+        }
+    }
+    #endregion
     #endregion
     #endregion
 
@@ -276,7 +261,7 @@ public class GameController : MonoBehaviour
     public void UpdateSceneScore(int increment, Vector2 location)
     {
         var actualIncrement = ComboModifier(increment);
-        CurrentScore += actualIncrement;
+        //CurrentScore += actualIncrement;
 
         // Spawns text at score location
         var text = Instantiate(scoreText, location, Quaternion.identity);
@@ -294,28 +279,10 @@ public class GameController : MonoBehaviour
     {
         var amount = increment;
 
-        if(increment > 0) amount += (int)((currentCombo * comboModifier) * increment);
+        //if(increment > 0) amount += (int)((currentCombo * comboModifier) * increment);
 
         return amount;
     }
-
-    #region Combo
-    /// <summary>
-    /// Increase the current combo by 1.
-    /// </summary>
-    public static void IncreaseCombo()
-    {
-        Instance.CurrentCombo++;
-    }
-
-    /// <summary>
-    /// Resets the current combo to zero.
-    /// </summary>
-    public static void ResetCombo()
-    {
-        Instance.CurrentCombo = 0;
-    }
-    #endregion
     #endregion
 
     #region Countdown
@@ -394,10 +361,10 @@ public class GameController : MonoBehaviour
     /// </summary>
     private void DisplayGameData()
     {
-        UIManager.UpdateEndGameData(2, "Temp Text");
-        UIManager.UpdateEndGameData(3, "Temp Text");
-        UIManager.UpdateEndGameData(4, "Temp Text");
-        UIManager.UpdateEndGameData(5, "Temp Text");
+        //UIManager.UpdateEndGameData(2, "Temp Text");
+        //UIManager.UpdateEndGameData(3, "Temp Text");
+        //UIManager.UpdateEndGameData(4, "Temp Text");
+        //UIManager.UpdateEndGameData(5, "Temp Text");
     }
 
     /// <summary>

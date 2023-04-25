@@ -176,6 +176,8 @@ public class SettingsManager : UIButtonController
             if (hasNotInitializedSettings)
             {
                 indexSettingsData[i] = initialSettingSlotsValues[i];
+
+                CallUpdateEvent(i);
             }
 
             RefreshSetting(indexedSettingSlots[i], indexSettingsData[i]);

@@ -99,7 +99,7 @@ public abstract class UIButtonController : MonoBehaviour
     /// </summary>
     public virtual void ClickSlot()
     {
-        UISoundManager.PlayHoverSound();
+        UISoundManager.PlayClickSound();
     }
 
     /// <summary>

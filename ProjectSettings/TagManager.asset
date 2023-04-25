@@ -7,11 +7,12 @@ TagManager:
   - Music
   - Player 2
   - Obstacle
+  - Basket
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - 

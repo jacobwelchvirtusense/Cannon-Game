@@ -22,6 +22,13 @@ public class CannonProjectile : MonoBehaviour
     private string collisionTag = "";
 
     private TrailRenderer trailRenderer;
+
+    [Tooltip("The explosion prefab to be used when hitting something")]
+    [SerializeField] private GameObject explosionEffect;
+
+    [SerializeField] private LayerMask playerMask;
+
+    private bool foundPlayer = false;
     #endregion
 
     #region Functions
@@ -36,12 +43,49 @@ public class CannonProjectile : MonoBehaviour
     {
         trailRenderer.Clear();
         collisionTag = "";
+        foundPlayer = false;
     }
 
     public void InitializeMovement(float moveSpeed, string collisionTag)
     {
         rigidbodyComponent.velocity = transform.right * moveSpeed;
         this.collisionTag = collisionTag;
+
+        CheckForPlayer();
+    }
+
+    private void FixedUpdate()
+    {
+        if (Mathf.Abs(transform.position.x) > 12)
+        {
+            if (foundPlayer)
+            {
+                var playerNumber = collisionTag == "Player" ? 1 : 2;
+
+                print("Dodge Increment");
+
+                if (playerNumber == 1)
+                {
+                    print("Dodge Increment");
+
+                    GameController.NumberOfTimesDodgedP1++;
+                }
+                else
+                {
+                    GameController.NumberOfTimesDodgedP2++;
+                }
+            }
+
+            ObjectPooler.ReturnObjectToPool(gameObject.name, gameObject);
+        }
+    }
+
+    private void CheckForPlayer()
+    {
+        if(Physics2D.BoxCast(transform.position, Vector2.one, 0, transform.right, 100, playerMask))
+        {
+            foundPlayer = true;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -53,12 +97,22 @@ public class CannonProjectile : MonoBehaviour
             var playerNumber = collisionTag == "Player" ? 1 : 2;
             GameController.UpdateLives(playerNumber , -1);
 
+            PlayHitEffect();
+
             ObjectPooler.ReturnObjectToPool(gameObject.name, gameObject);
         }
         else if (other.gameObject.CompareTag("Obstacle"))
         {
+            PlayHitEffect();
+
             ObjectPooler.ReturnObjectToPool(gameObject.name, gameObject);
         }
+    }
+
+    private void PlayHitEffect()
+    {
+        var explosion = Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        Destroy(explosion, 2.0f);
     }
     #endregion
 }

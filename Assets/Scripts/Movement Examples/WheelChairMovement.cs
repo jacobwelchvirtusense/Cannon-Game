@@ -71,6 +71,10 @@ public class WheelChairMovement : SensorDataListener
     [Tooltip("The max amount of frames to check for movement deltas for animation")]
     [SerializeField] private int maxMovementQueueSize = 10;
 
+    [Header("Data Tracking")]
+    [Tooltip("The minimum amount of delta movement before showing an animtion")]
+    [SerializeField] private float minimumDataMovementDelta = 0.01f;
+
     /// <summary>
     /// Handles the shooting of the cannon.
     /// </summary>
@@ -100,6 +104,16 @@ public class WheelChairMovement : SensorDataListener
     /// A queue of previous y positions that can be used for calculating if the user is moving.
     /// </summary>
     private Queue<float> yPositionQueue = new Queue<float>();
+
+    /// <summary>
+    /// The last z position of the user.
+    /// </summary>
+    private float lastZPosition = -Mathf.Infinity;
+
+    /// <summary>
+    /// The total zMovement for this user.
+    /// </summary>
+    private float totalZMovement = 0.0f;
     #endregion
 
     #region Functions
@@ -110,6 +124,14 @@ public class WheelChairMovement : SensorDataListener
         shootCannon = GetComponentInChildren<ShootCannon>();
 
         startingPosition = transform.position;
+
+        bodySourceManager.SensorDataUpdateEvent.RemoveListener(SetUserData);
+    }
+
+    private void FixedUpdate()
+    {
+        UseUserData(bodySourceManager.Player1Skeleton);
+        UseUserData(bodySourceManager.Player2Skeleton);
     }
 
     /// <summary>
@@ -118,7 +140,7 @@ public class WheelChairMovement : SensorDataListener
     /// <param name="skeleton">The skeleton of the user.</param>
     protected override void UseUserData(Skeleton skeleton)
     {
-        if (!gameObject.activeInHierarchy) return;
+        if (!gameObject.activeInHierarchy || skeleton == null) return;
 
         if (checkForPlayerOne)
         {
@@ -138,6 +160,8 @@ public class WheelChairMovement : SensorDataListener
         #region Taking input and calculating target position
         var xInput = skeleton.joints[(int)headJoint].position.x;
         var zInput = skeleton.joints[(int)headJoint].position.z;
+
+        CalculateUserMoveDelta(zInput);
 
         var targetPositionLerpX = Mathf.InverseLerp(-maxUserXPos, maxUserXPos, xInput); // Calculates the lerp of the angle
         var targetPositionLerpZ = Mathf.InverseLerp(maxUserZPos[CurrentMovementDifficulty], minUserZPos[CurrentMovementDifficulty], zInput); // Calculates the lerp of the angle
@@ -212,7 +236,28 @@ public class WheelChairMovement : SensorDataListener
 
     private float TimeSinceLastDataFrame()
     {
-        return Time.time - timeOfLastDataFrame;
+        return Time.fixedDeltaTime;
+        //return Time.time - timeOfLastDataFrame;
+    }
+
+    private void CalculateUserMoveDelta(float newZPos)
+    {
+        if (!GameController.GameplayActive) return;
+
+        if(lastZPosition != -Mathf.Infinity)
+        {
+            var delta = Mathf.Abs(lastZPosition - newZPos);
+
+            if(delta > minimumDataMovementDelta)
+            {
+                var playerNumber = checkForPlayerOne ? 1 : 2;
+
+                totalZMovement += delta;
+                UIManager.UpdateEndGameData(1, totalZMovement.ToString().Substring(0, 4), playerNumber);
+            }
+        }
+
+        lastZPosition = newZPos;
     }
     #endregion
 }

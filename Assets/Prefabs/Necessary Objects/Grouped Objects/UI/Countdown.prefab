@@ -145,9 +145,9 @@ AudioSource:
   m_GameObject: {fileID: 8548693902852410386}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -6461596127238600995, guid: 964d3fc2f6326f840809c41b789f56a3, type: 2}
+  OutputAudioMixerGroup: {fileID: -4863479575676514587, guid: 964d3fc2f6326f840809c41b789f56a3, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -247,10 +247,9 @@ MonoBehaviour:
   countdownObject: {fileID: 8548693902165062703}
   translucentAmount: 0.5
   countDownSound:
-  - {fileID: 8300000, guid: 247bfff06f6835f45aea5fae42347a73, type: 3}
+  - {fileID: 8300000, guid: 2882b4a556b1b214cb448ac3365155bf, type: 3}
   countDownSoundVolume: 1
   startSound:
-  - {fileID: 8300000, guid: 0fb6727f9f50c9f42ba76606b0557788, type: 3}
-  - {fileID: 8300000, guid: 47bc6c678c8623e44a9d6d252889d51e, type: 3}
-  - {fileID: 8300000, guid: 2d2a0ed4585ddb543baf4e5d505b7c6e, type: 3}
+  - {fileID: 8300000, guid: fce7f98896d2f974d82f8f638db6c388, type: 3}
+  - {fileID: 8300000, guid: 0239d774f4d2f784387cae414d87f329, type: 3}
   startSoundVolume: 1

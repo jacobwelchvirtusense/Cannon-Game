@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfLives: 030000000500000007000000090000000c000000
+  objectsToEnable: []
+  objectsToDisable: []
 --- !u!1 &5900019085141536385
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +91,7 @@ AudioSource:
   m_GameObject: {fileID: 5900019085141536385}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 6646245768375773166, guid: 964d3fc2f6326f840809c41b789f56a3, type: 2}
+  OutputAudioMixerGroup: {fileID: -4863479575676514587, guid: 964d3fc2f6326f840809c41b789f56a3, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -200,7 +202,7 @@ MonoBehaviour:
       m_Calls: []
   scoreText: {fileID: 1272027877974569678, guid: b12777d591d485249bbfb8456d3c563f, type: 3}
   comboModifier: 0.25
-  endSound: {fileID: 0}
+  endSound: {fileID: 8300000, guid: b9400b013c8ea444682e8c24c1b21b39, type: 3}
   endSoundVolume: 1
 --- !u!1 &8589346445263584166
 GameObject:
@@ -247,3 +249,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfLives: 030000000500000007000000090000000c000000
+  objectsToEnable: []
+  objectsToDisable: []

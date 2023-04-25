@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static InspectorValues;
 using static ValidCheck;
+using Cinemachine;
 
 public class ShootCannon : MonoBehaviour
 {
@@ -45,6 +46,8 @@ public class ShootCannon : MonoBehaviour
     private AudioSource audioSource;
 
     [SerializeField] private AudioClip[] cannonFireSounds = new AudioClip[0];
+
+    private CinemachineImpulseSource cannonShootImpulse;
     #endregion
 
     #region Functions
@@ -55,6 +58,7 @@ public class ShootCannon : MonoBehaviour
     {
         cannonAnimator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        cannonShootImpulse = GetComponent<CinemachineImpulseSource>();
     }
 
     /// <summary>
@@ -71,7 +75,16 @@ public class ShootCannon : MonoBehaviour
 
             cannonAnimator.SetTrigger("Shoot");
             timeOfLastShot = Time.time;
+
+            StartCoroutine(PlayCameraShake());
         }
+    }
+
+    private IEnumerator PlayCameraShake()
+    {
+        yield return new WaitForSeconds(0.05f);
+
+        if (cannonShootImpulse) cannonShootImpulse.GenerateImpulse();
     }
 
     private void PlayShootSound()

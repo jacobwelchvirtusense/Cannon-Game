@@ -29,7 +29,7 @@ public abstract class SensorDataListener : MonoBehaviour
     /// <summary>
     /// The manager of all body sources for the scene.
     /// </summary>
-    private BodySourceManager bodySourceManager;
+    protected BodySourceManager bodySourceManager;
     #endregion
 
     #region Functions
@@ -79,7 +79,7 @@ public abstract class SensorDataListener : MonoBehaviour
     /// Calls for user data to be used.
     /// </summary>
     /// <param name="skeleton">The Skeleton of the user being tracked.</param>
-    private void SetUserData(Skeleton skeleton)
+    protected void SetUserData(Skeleton skeleton)
     {
         if (hasFoundSensor && HasFoundUser())
         {

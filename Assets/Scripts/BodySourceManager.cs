@@ -96,10 +96,26 @@ public class BodySourceManager : MonoBehaviour
     /// </summary>
     private Skeleton activeUser1 = null;
     
+    public Skeleton Player1Skeleton
+    {
+        get
+        {
+            return activeUser1;
+        }
+    }
+
     /// <summary>
     /// The skeleton of the second active user.
     /// </summary>
     private Skeleton activeUser2 = null;
+
+    public Skeleton Player2Skeleton
+    {
+        get
+        {
+            return activeUser2;
+        }
+    }
 
     public static int NumberOfUsersToTrack
     {
@@ -412,6 +428,7 @@ public class BodySourceManager : MonoBehaviour
 
                 if (skeleton.IsTracked() && _trackedIds.Contains(skeleton.trackingId))
                 {
+                    activeUser1 = skeleton;
                     SensorDataUpdateEvent.Invoke(skeleton);
                 }
             }
@@ -489,6 +506,15 @@ public class BodySourceManager : MonoBehaviour
 
                 if (skeleton.IsTracked() && _trackedIds.Contains(skeleton.trackingId))
                 {
+                    if (IsPlayerOne(skeleton.trackingId))
+                    {
+                        activeUser1 = skeleton;
+                    }
+                    else
+                    {
+                        activeUser2 = skeleton;
+                    }
+
                     SensorDataUpdateEvent.Invoke(skeleton);
                 }
             }

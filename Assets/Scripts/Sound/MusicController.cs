@@ -11,7 +11,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class MusicController : MonoBehaviour
+public class MusicController : Singleton<MusicController>
 {
     #region Fields
     /// <summary>
@@ -23,25 +23,24 @@ public class MusicController : MonoBehaviour
     /// The audiosource of the 
     /// </summary>
     private AudioSource audioSource;
-
-    /// <summary>
-    /// The scene instance of the Music Controller.
-    /// </summary>
-    private static MusicController Instance;
     #endregion
 
     #region Functions
     /// <summary>
     /// Initializes components and fields.
     /// </summary>
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this; 
-        audioSource = GetComponent<AudioSource>();
+        base.Awake();
 
-        if(audioSource != null)
+        if(this != null)
         {
-            startingVolume = audioSource.volume;
+            audioSource = GetComponent<AudioSource>();
+
+            if (audioSource != null)
+            {
+                startingVolume = audioSource.volume;
+            }
         }
     }
 

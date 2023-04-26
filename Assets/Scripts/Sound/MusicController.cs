@@ -9,6 +9,7 @@
  *              the music that is currently being played.
 *********************************/
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(AudioSource))]
 public class MusicController : Singleton<MusicController>
@@ -41,6 +42,8 @@ public class MusicController : Singleton<MusicController>
             {
                 startingVolume = audioSource.volume;
             }
+
+            SceneManager.activeSceneChanged += ResetVolume;
         }
     }
 
@@ -53,6 +56,11 @@ public class MusicController : Singleton<MusicController>
         if (Instance == null) return;
 
         Instance.MusicVolumeUpdater(newVolumeScale);
+    }
+
+    private void ResetVolume(Scene currentScene, Scene nextScene)
+    {
+        audioSource.volume = startingVolume;
     }
 
     /// <summary>

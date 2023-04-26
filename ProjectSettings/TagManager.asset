@@ -60,3 +60,6 @@ TagManager:
   - name: Cannon
     uniqueID: 2734488135
     locked: 0
+  - name: Explosion
+    uniqueID: 561215023
+    locked: 0

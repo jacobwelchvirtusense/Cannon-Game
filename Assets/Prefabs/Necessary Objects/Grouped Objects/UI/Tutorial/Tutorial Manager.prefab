@@ -70,11 +70,11 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   tutorialElements:
-  - <TutorialName>k__BackingField: Text Example
-    <SubtitleText>k__BackingField: This is an example text to show you how text can
-      be displayed
+  - <TutorialName>k__BackingField: Opening Statement
+    <SubtitleText>k__BackingField: Welcome to Cannon Fodder, this training will have
+      you move forwards and backwards to dodge cannonballs.
     <VideoClip>k__BackingField: {fileID: 0}
-    <AudioDialogue>k__BackingField: {fileID: 0}
+    <AudioDialogue>k__BackingField: {fileID: 8300000, guid: 184ac2f8155c41f49aa4d2079f4b5235, type: 3}
     <DialogueVolume>k__BackingField: 1
     <DelayBefore>k__BackingField: 0.3
     <DelayAfter>k__BackingField: 1
@@ -82,11 +82,11 @@ MonoBehaviour:
     <DialogueInterruption>k__BackingField: 0
     <PreTutorialEvent>k__BackingField: 0
     <PostTutorialEvent>k__BackingField: 0
-  - <TutorialName>k__BackingField: Video Example
-    <SubtitleText>k__BackingField: This is an example video to show you how a video
-      is played
+  - <TutorialName>k__BackingField: Getting Hit
+    <SubtitleText>k__BackingField: 'Getting hit by a cannon ball will reduce your
+      health, and once it reaches zero you will lose '
     <VideoClip>k__BackingField: {fileID: 32900000, guid: 515ff6da7770cc245ba28efd3adef190, type: 3}
-    <AudioDialogue>k__BackingField: {fileID: 0}
+    <AudioDialogue>k__BackingField: {fileID: 8300000, guid: 29d3833990c05fc428b8ef38a06afa09, type: 3}
     <DialogueVolume>k__BackingField: 1
     <DelayBefore>k__BackingField: 0
     <DelayAfter>k__BackingField: 1
@@ -94,10 +94,47 @@ MonoBehaviour:
     <DialogueInterruption>k__BackingField: 0
     <PreTutorialEvent>k__BackingField: 0
     <PostTutorialEvent>k__BackingField: 0
-  - <TutorialName>k__BackingField: Audio Example
-    <SubtitleText>k__BackingField: You should hear a short audio clip play
+  - <TutorialName>k__BackingField: Movement
+    <SubtitleText>k__BackingField: 'To continue the tutorial, test out your movement
+      by rolling forwards and backwards into each parrot on the screen. '
     <VideoClip>k__BackingField: {fileID: 0}
-    <AudioDialogue>k__BackingField: {fileID: 8300000, guid: df6cb357534d2f94fa3965bd556d2aae, type: 3}
+    <AudioDialogue>k__BackingField: {fileID: 8300000, guid: d80d132113015654297670678474f7cb, type: 3}
+    <DialogueVolume>k__BackingField: 1
+    <DelayBefore>k__BackingField: 0
+    <DelayAfter>k__BackingField: 4
+    <TutorialBranchReason>k__BackingField: 0
+    <DialogueInterruption>k__BackingField: 0
+    <PreTutorialEvent>k__BackingField: 0
+    <PostTutorialEvent>k__BackingField: 0
+  - <TutorialName>k__BackingField: Enemy
+    <SubtitleText>k__BackingField: The enemy ship will follow you and will shoot
+      occasionally.
+    <VideoClip>k__BackingField: {fileID: 0}
+    <AudioDialogue>k__BackingField: {fileID: 8300000, guid: 2f512eaa555d2ce4f97ac2edbf903b60, type: 3}
+    <DialogueVolume>k__BackingField: 1
+    <DelayBefore>k__BackingField: 0
+    <DelayAfter>k__BackingField: 4
+    <TutorialBranchReason>k__BackingField: 0
+    <DialogueInterruption>k__BackingField: 0
+    <PreTutorialEvent>k__BackingField: 0
+    <PostTutorialEvent>k__BackingField: 0
+  - <TutorialName>k__BackingField: Increasing DIfficulty
+    <SubtitleText>k__BackingField: 'As the game progresses the enemy will fire increasingly
+      faster cannon balls at you as well. '
+    <VideoClip>k__BackingField: {fileID: 0}
+    <AudioDialogue>k__BackingField: {fileID: 8300000, guid: dc7f098fb99cad04aa6aa15dfea4203e, type: 3}
+    <DialogueVolume>k__BackingField: 1
+    <DelayBefore>k__BackingField: 0
+    <DelayAfter>k__BackingField: 4
+    <TutorialBranchReason>k__BackingField: 0
+    <DialogueInterruption>k__BackingField: 0
+    <PreTutorialEvent>k__BackingField: 0
+    <PostTutorialEvent>k__BackingField: 0
+  - <TutorialName>k__BackingField: Survive
+    <SubtitleText>k__BackingField: It's your job to survive as long as you can to
+      get your best time!!!
+    <VideoClip>k__BackingField: {fileID: 0}
+    <AudioDialogue>k__BackingField: {fileID: 8300000, guid: 715722b8971fc614e877456fb9135375, type: 3}
     <DialogueVolume>k__BackingField: 1
     <DelayBefore>k__BackingField: 0
     <DelayAfter>k__BackingField: 4
